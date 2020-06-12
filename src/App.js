@@ -9,12 +9,7 @@ import Header from "./components/header/header.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
 class App extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     currentUser: null
-  //   }
-  // }
+
   unsubscribeFromAuth = null;
 
   componentDidMount() {
@@ -25,13 +20,7 @@ class App extends React.Component {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
-          // console.log("snapShot.data(): ", snapShot.data());
-          // this.setState({
-          //   currentUser: {
-          //     id: snapShot.id,
-          //     ...snapShot.data()
-          //   }
-          // }, () => console.log('this.state', this.state));
+
           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data()
@@ -43,17 +32,8 @@ class App extends React.Component {
       else {
         setCurrentUser(userAuth);
       }
-      // this.setState({ currentUser: userAuth });
-      // console.log('userAuth: ', userAuth);
     });
   }
-
-  // componentDidMount() {
-  //   this.unsubscribeFromAuth = auth.onAuthStateChanged( user => {
-  //      this.setState({ currentUser: user });
-  //      console.log(user);
-  //    })
-  //  }
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
